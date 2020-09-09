@@ -68,12 +68,12 @@ class Group:
 
     def getStudentsList(self):
         if len(self.__studentsList) == 0:
-            return('List of students {} group is empty.\n'.format(self.__groupName))
+            return('List of students {} group is empty.\n'.format(self.getGroupName()))
         else:
             message = ''
 
             self.__studentsList = sorted(self.__studentsList, key=lambda stud: stud.getName())
-            message += ('List of students {} group:\n'.format(self.__groupName))
+            message += ('List of students {} group:\n'.format(self.getGroupName()))
             for i in self.__studentsList:
                 message += '{} - {}\n'.format(i.getName(), i.getGrades())
             return message
@@ -81,12 +81,12 @@ class Group:
 
     def getStudentListSortedByGrades(self):
         if len(self.__studentsList) == 0:
-            return('List of students {} group is empty.\n'.format(self.__groupName))
+            return('List of students {} group is empty.\n'.format(self.getGroupName()))
         else:
             message = ''
 
             self.__studentsList = sorted(self.__studentsList, key=lambda stud: sum(stud.getGrades()) / len(stud.getGrades()), reverse=True)
-            message += ('List of students {} group:\n'.format(self.__groupName))
+            message += ('List of students {} group:\n'.format(self.getGroupName()))
             for i in self.__studentsList:
                 message += '{} - {}\n'.format(i.getName(), i.getGrades())
             return message

@@ -1,6 +1,10 @@
 class Student:
-    def __init__(self, name = ''):
+    def __init__(self, name = '', grades = False):
         self._name = name
+        if not grades:
+            self._grades = []
+        else:
+            self._grades = grades
     
 
     def __str__(self):
@@ -13,6 +17,14 @@ class Student:
 
     def getName(self):
         return self._name
+
+
+    def setGrades(self, grades):
+        self._grades = grades
+
+
+    def getGrades(self):
+        return self._grades
 
     
 class Group:
@@ -38,7 +50,7 @@ class Group:
 
 
     def addStudent(self, student):
-        if (len(self.__studentsList) < self.__maxGroupSize):
+        if len(self.__studentsList) < self.__maxGroupSize:
             self.__studentsList.append(student)
         else:
             print('Failed to add student. The group is overcrowded.')
@@ -55,7 +67,7 @@ class Group:
 
 
     def getStudentsList(self):
-        if (len(self.__studentsList) == 0):
+        if len(self.__studentsList) == 0:
             return('List of students {} group is empty.\n'.format(self.__groupName))
         else:
             message = ''
@@ -67,22 +79,31 @@ class Group:
             return message
 
 
+    def getStudentListSortedByGrades(self):
+        if len(self.__studentsList) == 0:
+            return('List of students {} group is empty.\n'.format(self.__groupName))
+        else:
+            message = ''
+
+            self.studentsList = sorted(self.__studentsList, key=lambda stud: sum(stud._grades) / len(stud._grades))
+            message += ('List of students {} group:\n'.format(self.__groupName))
+            for i in self.__studentsList:
+                message += '{} - {}\n'.format(i.getName(), i.getGrades())
+            return message
+
+
 # Tests
 group8091 = Group('8091', 20)
 group9091 = Group('9091', 10)
-group0091 = Group('0091', 10)
 
-student1 = Student('wee')
-student2 = Student('aaa')
-print(student1)
+student1 = Student('wee', [5, 5, 5])
+student2 = Student('aaa', [4, 3, 4])
 group8091.addStudent(student1)
 group8091.addStudent(student2)
-group9091.addStudent(student1)
 
-print(group8091)
-group8091.removeStudentByName('wee')
-group8091.removeStudentByName('aaa')
-print(group8091)
-print(group9091)
-print(group0091)
-print(group0091)
+print(group8091.getStudentListSortedByGrades())
+# print(group8091)
+# group8091.removeStudentByName('wee')
+# group8091.removeStudentByName('aaa')
+# print(group8091)
+# print(group9091)

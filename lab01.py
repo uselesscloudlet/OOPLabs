@@ -72,10 +72,10 @@ class Group:
         else:
             message = ''
 
-            self.__studentsList = sorted(self.__studentsList, key=lambda stud: stud._name)
+            self.__studentsList = sorted(self.__studentsList, key=lambda stud: stud.getName())
             message += ('List of students {} group:\n'.format(self.__groupName))
             for i in self.__studentsList:
-                message += i.getName() + '\n'
+                message += '{} - {}\n'.format(i.getName(), i.getGrades())
             return message
 
 
@@ -85,7 +85,7 @@ class Group:
         else:
             message = ''
 
-            self.studentsList = sorted(self.__studentsList, key=lambda stud: sum(stud._grades) / len(stud._grades))
+            self.__studentsList = sorted(self.__studentsList, key=lambda stud: sum(stud.getGrades()) / len(stud.getGrades()), reverse=True)
             message += ('List of students {} group:\n'.format(self.__groupName))
             for i in self.__studentsList:
                 message += '{} - {}\n'.format(i.getName(), i.getGrades())
@@ -98,10 +98,13 @@ group9091 = Group('9091', 10)
 
 student1 = Student('wee', [5, 5, 5])
 student2 = Student('aaa', [4, 3, 4])
+student3 = Student('rrr', [4, 4, 4])
 group8091.addStudent(student1)
 group8091.addStudent(student2)
+group8091.addStudent(student3)
 
 print(group8091.getStudentListSortedByGrades())
+print(group8091)
 # print(group8091)
 # group8091.removeStudentByName('wee')
 # group8091.removeStudentByName('aaa')

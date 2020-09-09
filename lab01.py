@@ -1,34 +1,34 @@
 class Student:
-    def __init__(self, name = '', grades = False):
-        self._name = name
+    def __init__(self, name, grades):
+        self.__name = name
         if not grades:
-            self._grades = []
+            self.__grades = []
         else:
-            self._grades = grades
+            self.__grades = grades
     
 
     def __str__(self):
-        return 'Student named {}'.format(self._name)
+        return 'Student named {} with grades: {}.'.format(self.__name, self.__grades)
 
-
+    
     def setName(self, name):
-        self._name = name
+        self.__name = name
 
-
+    
     def getName(self):
-        return self._name
+        return self.__name
 
 
     def setGrades(self, grades):
-        self._grades = grades
+        self.__grades = grades
 
 
     def getGrades(self):
-        return self._grades
+        return self.__grades
 
     
 class Group:
-    def __init__(self, groupName = '', maxGroupSize = 0, studentList = False):
+    def __init__(self, groupName, maxGroupSize, studentList):
         self.__groupName = groupName
         self.__maxGroupSize = maxGroupSize
         if not studentList:
@@ -38,7 +38,7 @@ class Group:
     
 
     def __str__(self):
-     return self.getStudentsList()
+        return self.getStudentsList()
 
 
     def setGroupName(self, groupName = ''):
@@ -53,7 +53,7 @@ class Group:
         if len(self.__studentsList) < self.__maxGroupSize:
             self.__studentsList.append(student)
         else:
-            print('Failed to add student. The group is overcrowded.')
+            raise('Failed to add student. The group is overcrowded.')
     
 
     def removeStudentByName(self, name = ''):
@@ -63,12 +63,12 @@ class Group:
                 checkStudent = True
                 self.__studentsList.remove(i)
         if not checkStudent:
-            print('Student with name {} not found.'.format(name))
+            raise('Student with name {} not found.'.format(name))
 
 
     def getStudentsList(self):
         if len(self.__studentsList) == 0:
-            return('List of students {} group is empty.\n'.format(self.getGroupName()))
+            return 'List of students {} group is empty.\n'.format(self.getGroupName())
         else:
             message = ''
 
@@ -93,12 +93,13 @@ class Group:
 
 
 # Tests
-group8091 = Group('8091', 20)
-group9091 = Group('9091', 10)
+group8091 = Group('8091', 20, None)
+group9091 = Group('9091', 10, None)
 
 student1 = Student('wee', [5, 5, 5])
 student2 = Student('aaa', [4, 3, 4])
 student3 = Student('rrr', [4, 4, 4])
+
 group8091.addStudent(student1)
 group8091.addStudent(student2)
 group8091.addStudent(student3)

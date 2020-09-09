@@ -1,7 +1,11 @@
 class Student:
-    def __init__(self, name = '', group = 0):
+    def __init__(self, name = ''):
         self._name = name
     
+
+    def __str__(self):
+        return 'Student named {}'.format(self._name)
+
 
     def setName(self, name):
         self._name = name
@@ -20,6 +24,10 @@ class Group:
         else:
             self.__studentsList = studentList
     
+
+    def __str__(self):
+     return self.getStudentsList()
+
 
     def setGroupName(self, groupName = ''):
         self.__groupName = groupName
@@ -48,12 +56,15 @@ class Group:
 
     def getStudentsList(self):
         if (len(self.__studentsList) == 0):
-            print('List of students {} group is empty.'.format(self.__groupName))
+            return('List of students {} group is empty.\n'.format(self.__groupName))
         else:
+            message = ''
+
             self.__studentsList = sorted(self.__studentsList, key=lambda stud: stud._name)
-            print('List of students {} group:'.format(self.__groupName))
+            message += ('List of students {} group:\n'.format(self.__groupName))
             for i in self.__studentsList:
-                print('{}'.format(i.getName()))
+                message += i.getName() + '\n'
+            return message
 
 
 # Tests
@@ -63,14 +74,15 @@ group0091 = Group('0091', 10)
 
 student1 = Student('wee')
 student2 = Student('aaa')
-
+print(student1)
 group8091.addStudent(student1)
 group8091.addStudent(student2)
 group9091.addStudent(student1)
 
-group8091.getStudentsList()
+print(group8091)
 group8091.removeStudentByName('wee')
 group8091.removeStudentByName('aaa')
-group8091.getStudentsList()
-group9091.getStudentsList()
-group0091.getStudentsList()
+print(group8091)
+print(group9091)
+print(group0091)
+print(group0091)

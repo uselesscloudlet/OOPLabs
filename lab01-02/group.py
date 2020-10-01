@@ -51,7 +51,7 @@ class Group:
             for i in self.__studentsList:
                 message += '[{}] {} - {}, Allow Exam: {} | Attempt: {}, Exam Success: {}, Exam Grade: {}\n'.format(
                     i.status, i.name, i.grades, i.allowExam, self.attemptCount,
-                    True if (i.examGrade is not None) and (i.examGrade > 3) else False, i.examGrade)
+                    True if (i.examGrade is not None) and (i.examGrade > 2) else False, i.examGrade)
             return message
 
 
@@ -65,8 +65,8 @@ class Group:
             message += ('List of students {} group:\n'.format(self.groupName))
             for i in self.__studentsList:
                 message += '[{}] {} - {}, Allow Exam: {} | Attempt: {}, Exam Success: {}, Exam Grade: {}\n'.format(
-                    i.status, i.name, i.grades, i.allowExam,self.attemptCount,
-                    True if i.allowExam is not None and i.examGrade > 3 else False, i.examGrade)
+                    i.status, i.name, i.grades, i.allowExam, self.attemptCount,
+                    True if (i.examGrade is not None) and (i.examGrade > 2) else False, i.examGrade)
             return message
     
 

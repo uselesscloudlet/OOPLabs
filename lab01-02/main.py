@@ -4,15 +4,31 @@ from exam import Exam
 
 import unittest
 
+#1
+stud1 = DefaultStudent('A A A', [2, 3, 4])
+stud2 = DefaultStudent('B B B', [3, 3, 4])
+stud3 = DefaultStudent('C C C', [4, 4, 5])
+stud4 = DefaultStudent('D D D', [3, 4, 4])
 
-group = Group('8091', 20, [])
-
-for i in range(3):
-    group.addStudent(DefaultStudent(i, [1, 1, 1]))
+group = Group('8091', 20, [stud1, stud2, stud3, stud4])
 exam = Exam(group)
-print(group.getStudentsList())
 exam.checkGrades()
+print(exam)
+exam.examination()
+exam.examination()
+exam.examination()
 print(group.getStudentsList())
+print(exam)
+
+#2
+stud1 = NerdStudent('A A A', [2, 3, 4])
+stud2 = MemberOfStudentCouncil('B B B', [3, 3, 4])
+stud3 = DefaultStudent('C C C', [4, 4, 5])
+stud4 = DefaultStudent('D D D', [3, 4, 4])
+
+group = Group('8091', 20, [stud1, stud2, stud3, stud4])
+exam = Exam(group)
+exam.checkGrades()
 exam.examination()
 exam.examination()
 exam.examination()

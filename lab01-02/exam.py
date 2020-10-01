@@ -19,6 +19,7 @@ class Exam:
             else:
                 i.allowExam = True
 
+
     def examination(self):
         if not self.__group.studList or self.__group.studList[0].allowExam == None:
             raise 'Group pass in the exam was not carry out'

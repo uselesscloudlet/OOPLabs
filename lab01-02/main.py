@@ -2,8 +2,6 @@ from students import AbstractStudent, DefaultStudent, MemberOfStudentCouncil, Ne
 from group import Group
 from exam import Exam
 
-import unittest
-
 #1
 stud1 = DefaultStudent('A A A', [2, 3, 4])
 stud2 = DefaultStudent('B B B', [3, 3, 4])

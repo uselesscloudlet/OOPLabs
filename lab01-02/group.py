@@ -70,8 +70,6 @@ class Group:
             return message
     
 
-    
-
     def addStudent(self, student):
         if len(self.__studentsList) < self.__maxGroupSize:
             self.__studentsList.append(student)

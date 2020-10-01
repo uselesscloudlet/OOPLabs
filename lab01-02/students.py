@@ -63,8 +63,6 @@ class AbstractStudent(ABC):
         pass
 
 
-
-
 class DefaultStudent(AbstractStudent):
 
     @property
@@ -79,7 +77,6 @@ class MemberOfStudentCouncil(DefaultStudent):
         return 'Member of Student Council'
 
 class NerdStudent(AbstractStudent):
-
 
     def __init__(self, name, grades):
         AbstractStudent.__init__(self, name, grades=[5] * len(grades))

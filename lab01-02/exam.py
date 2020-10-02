@@ -1,24 +1,40 @@
 class Exam:
-    __slots__ = ['__group', '__MAX_NUMBER_OF_ATTEMPTS']
+    __slots__ = ['__group', '__examName', '__MAX_NUMBER_OF_ATTEMPTS']
 
-    def __init__(self, group):
+    def __init__(self, group, examName):
         self.__group = group
+        self.__examName = examName
         self.__MAX_NUMBER_OF_ATTEMPTS = 3
 
 
     def __str__(self):
-        return 'Last exam in this group was passed: {}'.format(True if self.__group.attemptCount >= 3 else False)
+        return 'Last exam [{}] in this group was passed: {}'.format(self.__examName, True if self.__group.attemptCount >= 3 else False)
 
 
     def checkGrades(self):
         for i in self.__group.studList:
-            if min(i.grades) < 3:
-                i.allowExam = False
-            else:
-                i.allowExam = True
+            for j in i.grades:
+                if j.grades.get(self.__examName) == None:
+                    continue
+                if min(j.grades.get(self.__examName)) < 3:
+                    j.allowExam = False
+                else:
+                    j.allowExam = True
 
 
     def examination(self):
+        for i in self.__group.studList:
+            for j in i.grades:
+                if j.allowExam is None:
+                    raise 'Group pass in the exam was not carry out'
+                # if j.grades.get(self.__examName) == None:
+                #     continue
+                # if min(j.grades.get(self.__examName)) < 3:
+                #     j.allowExam = False
+                # else:
+                #     j.allowExam = True
+        
+
         if not self.__group.studList or self.__group.studList[0].allowExam == None:
             raise 'Group pass in the exam was not carry out'
         if self.__group.attemptCount >= self.__MAX_NUMBER_OF_ATTEMPTS:
@@ -26,11 +42,14 @@ class Exam:
         self.__group.attemptCount += 1
         to_kick = []
 
-        for i in filter(lambda s: (s.examGrade is None or s.examGrade < 3) and s.allowExam, self.__group.studList):
+        for i in filter(lambda s: (s.grades.get(self.__examName).examGrade is None 
+                                   or s.grades.get(self.__examName).examGrade < 3)
+                                   and s.grades.get(self.__examName).allowExam,
+                                   self.__group.studList):
             is_last_attempt = self.__group.attemptCount == self.__MAX_NUMBER_OF_ATTEMPTS
-            i.examGrade = i.gradeKnowledge(is_last_attempt)
+            i.grades.get(self.__examName).examGrade = i.gradeKnowledge(is_last_attempt)
                 
-            if is_last_attempt and (i.examGrade < 3 or i.examGrade is None):
+            if is_last_attempt and (i.grades.get(self.__examName).examGrade < 3 or i.grades.get(self.__examName).examGrade is None):
                 to_kick.append(i.name)
 
         for student in to_kick:

@@ -49,9 +49,7 @@ class Group:
             self.__studentsList = sorted(self.__studentsList, key=lambda stud: stud.name)
             message += ('List of students {} group:\n'.format(self.groupName))
             for i in self.__studentsList:
-                message += '[{}] {} - {}, Allow Exam: {} | Attempt: {}, Exam Success: {}, Exam Grade: {}\n'.format(
-                    i.status, i.name, i.grades, i.allowExam, self.attemptCount,
-                    True if (i.examGrade is not None) and (i.examGrade > 2) else False, i.examGrade)
+                message += str(i)
             return message
 
 
@@ -64,9 +62,7 @@ class Group:
             self.__studentsList = sorted(self.__studentsList, key=lambda stud: sum(stud.grades) / len(stud.grades), reverse=True)
             message += ('List of students {} group:\n'.format(self.groupName))
             for i in self.__studentsList:
-                message += '[{}] {} - {}, Allow Exam: {} | Attempt: {}, Exam Success: {}, Exam Grade: {}\n'.format(
-                    i.status, i.name, i.grades, i.allowExam, self.attemptCount,
-                    True if (i.examGrade is not None) and (i.examGrade > 2) else False, i.examGrade)
+                message += str(i)
             return message
     
 
@@ -79,10 +75,10 @@ class Group:
 
     def removeStudentByName(self, name):
         checkStudent = False
-        for i in self.__studentsList:
+        for index, i in enumerate(self.__studentsList):
             if i.name == name:
                 checkStudent = True
-                self.__studentsList.remove(i)
+                self.__studentsList.pop(index)
                 break
         if not checkStudent:
             raise('Student with name {} not found.'.format(name))

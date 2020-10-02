@@ -1,13 +1,10 @@
 class Grades:
-    __slots__ = ['__grades']
+    __slots__ = ['__grades', '__allowExam', '__examGrade']
 
     def __init__(self, grades):
-        self.__grades = {
-            "grades": grades,
-            "allowExam": None,
-            "examGrade": None
-        }
-         # dict(subjectName=grades) не работает. Выдает вариант в виде 'subjectName': [...]
+        self.__grades = grades
+        self.__allowExam = None
+        self.__examGrade = None
 
 
     def __repr__(self):
@@ -16,30 +13,30 @@ class Grades:
 
     @property
     def grades(self):
-        return self.__grades["grades"]
+        return self.__grades
 
 
     @grades.setter
     def grades(self, grades):
-        self.__grades["grades"] = grades
+        self.__grades = grades
 
 
     @property
     def allowExam(self):
-        return self.__grades["allowExam"]
+        return self.__allowExam
 
 
     @allowExam.setter
     def allowExam(self, allowExam):
-        self.__grades["allowExam"] = allowExam
+        self.__allowExam = allowExam
 
 
     @property
     def examGrade(self):
-        return self.__grades["examGrade"]
+        return self.__examGrade
 
 
     @examGrade.setter
     def examGrade(self, examGrade):
-        self.__grades["examGrade"] = examGrade
+        self.__examGrade = examGrade
     

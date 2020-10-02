@@ -14,16 +14,15 @@ class AbstractStudent(ABC):
 
     
     def __str__(self):
-        return '\n{} named {} with grades: \n{}'.format(self.status, self.name, "".join(g + ": " + str(self.grades[g]) + "\n" for g in self.grades))
+        return '\n{} named {} with grades: \n{}'.format(self.status, self.name, "".join(g + ": " + str(self.__grades[g]) + "\n" for g in self.__grades))
 
 
     def addSubjectAndGrade(self, subjectName, grades):
         self.__grades[subjectName] = Grades(grades)
+    
 
-
-    @property
-    def grades(self):
-        return self.__grades
+    def getGradesForSubject(self, subjectName):
+        return self.__grades[subjectName]
 
 
     @property

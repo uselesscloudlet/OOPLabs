@@ -13,9 +13,9 @@ class Exam:
 
     def checkGrades(self):
         for i in self.__group.studList:
-            if i.grades[self.__examName] is None:
+            if i.getGradesForSubject(self.__examName) is None:
                 continue
-            i.grades[self.__examName].allowExam = (min(i.grades[self.__examName].grades) > 3)
+            i.getGradesForSubject(self.__examName).allowExam = (min(i.getGradesForSubject(self.__examName).grades) > 3)
 
 
     def examination(self):
@@ -26,15 +26,15 @@ class Exam:
         is_last_attempt = self.__group.attemptCount == self.__MAX_NUMBER_OF_ATTEMPTS
         to_kick = []
         for i in self.__group.studList:
-            this_exam = i.grades[self.__examName]
+            this_exam = i.getGradesForSubject(self.__examName)
             if this_exam is None:
                 continue
             if this_exam.allowExam is None:
                 raise 'Group pass in the exam was not carry out'
-            if this_exam.examGrade is None or this_exam.examGrade < 3:
+            if (this_exam.examGrade is None or this_exam.examGrade < 3) and (this_exam.allowExam is not False):
                 this_exam.examGrade = i.gradeKnowledge(is_last_attempt)
 
-            if is_last_attempt and (i.grades.get(self.__examName).examGrade < 3 or i.grades.get(self.__examName).examGrade is None):
+            if is_last_attempt and (this_exam.examGrade is None or this_exam.examGrade < 3):
                 to_kick.append(i.name)
 
         for student in to_kick:

@@ -1,5 +1,3 @@
-from random import randint
-
 class Exam:
     __slots__ = ['__group', '__MAX_NUMBER_OF_ATTEMPTS']
 
@@ -29,17 +27,10 @@ class Exam:
         to_kick = []
 
         for i in filter(lambda s: (s.examGrade is None or s.examGrade < 3) and s.allowExam, self.__group.studList):
-            if i.status == 'Nerd Student':
-                i.examGrade = 5
-            elif i.status == 'Member of Student Council':
-                if self.__group.attemptCount != self.__MAX_NUMBER_OF_ATTEMPTS:
-                    i.examGrade = randint(1, 5)
-                else:
-                    i.examGrade = 3
-            elif i.status == 'Default Student':
-                i.examGrade = randint(1, 5)
+            is_last_attempt = self.__group.attemptCount == self.__MAX_NUMBER_OF_ATTEMPTS
+            i.examGrade = i.gradeKnowledge(is_last_attempt)
                 
-            if self.__group.attemptCount == self.__MAX_NUMBER_OF_ATTEMPTS and (i.examGrade < 3 or None):
+            if is_last_attempt and (i.examGrade < 3 or i.examGrade is None):
                 to_kick.append(i.name)
 
         for student in to_kick:

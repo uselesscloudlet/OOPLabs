@@ -1,3 +1,4 @@
+from random import randint
 from abc import ABC, abstractmethod
 
 class AbstractStudent(ABC):
@@ -62,6 +63,10 @@ class AbstractStudent(ABC):
     def status(self):
         pass
 
+    @abstractmethod
+    def gradeKnowledge(self, isLastAttempt = False):
+        pass
+
 
 class DefaultStudent(AbstractStudent):
 
@@ -69,12 +74,18 @@ class DefaultStudent(AbstractStudent):
     def status(self):
         return 'Default Student'
 
+    def gradeKnowledge(self, isLastAttempt = False):
+        return randint(1, 5)
+
 
 class MemberOfStudentCouncil(DefaultStudent):
 
     @property
     def status(self):
         return 'Member of Student Council'
+
+    def gradeKnowledge(self, isLastAttempt = False):
+        return (3 if isLastAttempt else super().gradeKnowledge())
 
 class NerdStudent(AbstractStudent):
 
@@ -85,3 +96,6 @@ class NerdStudent(AbstractStudent):
     @property
     def status(self):
         return 'Nerd Student'
+
+    def gradeKnowledge(self, isLastAttempt = False):
+        return randint(4, 5)

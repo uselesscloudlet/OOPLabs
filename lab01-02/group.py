@@ -83,5 +83,6 @@ class Group:
             if i.name == name:
                 checkStudent = True
                 self.__studentsList.remove(i)
+                break
         if not checkStudent:
             raise('Student with name {} not found.'.format(name))

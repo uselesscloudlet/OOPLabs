@@ -2,7 +2,6 @@ from que import Queue
 from visitor import Visitor
 from oper import Operator, OperatorType
 import random
-import os
 
 queue = Queue()
 
